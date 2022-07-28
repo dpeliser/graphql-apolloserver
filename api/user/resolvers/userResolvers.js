@@ -16,7 +16,7 @@ const userResolvers = {
   }),
 
   Query: {
-    users: (root, args, { dataSources }) => dataSources.usersApi.getUsers(),
+    users: (root, args, { dataSources }) => dataSources.usersApi.getUsers(args),
     user: (root, { id }, { dataSources }) => dataSources.usersApi.getUserById(id),
   },
 
@@ -24,6 +24,10 @@ const userResolvers = {
     adicionaUser: (root, { user }, { dataSources }) => dataSources.usersApi.adicionaUser(user),
     atualizaUser: (root, novosDados, { dataSources }) => dataSources.usersApi.atualizaUser(novosDados),
     deletaUser: (root, { id }, { dataSources }) => dataSources.usersApi.deletaUser(id),
+  },
+
+  User: {
+    matriculas: (parent, _, { dataSources }) => dataSources.matriculasApi.matriculasLoader.load(parent.id),
   },
 };
 
